@@ -24,7 +24,20 @@ public class FiboC {
     long fasterC(long n, int m) {
         //Интуитивно найти решение не всегда просто и
         //возможно потребуется дополнительный поиск информации
-        return -1L;
+        if (n <= 1) return n;
+
+        int[] remains = new int[m*6];
+        remains[0] = 0;
+        remains[1] = 1;
+
+        int i = 2;
+        while (true) {
+            remains[i] = (remains[i - 1] + remains[i - 2]) % m;
+            if (remains[i] == 1 && remains[i - 1] == 0) {
+                return remains[(int) (n % (i-1))];
+            }
+            i++;
+        }
     }
 
 

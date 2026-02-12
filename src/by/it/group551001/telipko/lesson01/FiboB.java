@@ -1,6 +1,7 @@
 package by.it.group551001.telipko.lesson01;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 /*
  * Вам необходимо выполнить способ вычисления чисел Фибоначчи со вспомогательным массивом
@@ -9,7 +10,14 @@ import java.math.BigInteger;
 
 public class FiboB {
 
+    private final ArrayList<BigInteger> foundedNumbers;
     private long startTime = System.currentTimeMillis();
+
+    public FiboB() {
+        foundedNumbers = new ArrayList<>();
+        foundedNumbers.add(BigInteger.ZERO);
+        foundedNumbers.add(BigInteger.ONE);
+    }
 
     public static void main(String[] args) {
         //вычисление чисел простым быстрым методом
@@ -24,7 +32,22 @@ public class FiboB {
 
     BigInteger fastB(Integer n) {
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        return BigInteger.valueOf(-1L);
+
+        int lastIndex = foundedNumbers.size()-1;
+
+        if (n>lastIndex) {
+            BigInteger prev = foundedNumbers.get(lastIndex-1);
+            BigInteger last = foundedNumbers.get(lastIndex);
+            BigInteger res;
+            for (int i = lastIndex; i < n; i++) {
+                res = last.add(prev);
+                foundedNumbers.add(res);
+                prev = last;
+                last = res;
+            }
+        }
+
+        return foundedNumbers.get(n);
     }
 
 }
